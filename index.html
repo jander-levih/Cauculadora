@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Científica Completa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🧮 Calculadora Científica Completa</h1>
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-tab="cientifica">Científica</button>
+                <button class="tab-btn" data-tab="datas">Datas</button>
+                <button class="tab-btn" data-tab="proporcional">Proporcional</button>
+            </div>
+        </header>
+
+        <!-- Calculadora Científica -->
+        <div class="tab-content active" id="cientifica">
+            <div class="calculator">
+                <div class="display">
+                    <div class="previous-operand" id="previous-operand"></div>
+                    <div class="current-operand" id="current-operand">0</div>
+                </div>
+                <div class="buttons">
+                    <button class="btn function" onclick="clearAll()">C</button>
+                    <button class="btn function" onclick="clearEntry()">CE</button>
+                    <button class="btn function" onclick="backspace()">⌫</button>
+                    <button class="btn operator" onclick="setOperation('÷')">÷</button>
+
+                    <button class="btn function" onclick="calculate('sin')">sin</button>
+                    <button class="btn function" onclick="calculate('cos')">cos</button>
+                    <button class="btn function" onclick="calculate('tan')">tan</button>
+                    <button class="btn operator" onclick="setOperation('×')">×</button>
+
+                    <button class="btn number" onclick="appendNumber('7')">7</button>
+                    <button class="btn number" onclick="appendNumber('8')">8</button>
+                    <button class="btn number" onclick="appendNumber('9')">9</button>
+                    <button class="btn operator" onclick="setOperation('-')">-</button>
+
+                    <button class="btn function" onclick="calculate('log')">log</button>
+                    <button class="btn function" onclick="calculate('ln')">ln</button>
+                    <button class="btn function" onclick="calculate('sqrt')">√</button>
+                    <button class="btn operator" onclick="setOperation('+')">+</button>
+
+                    <button class="btn number" onclick="appendNumber('4')">4</button>
+                    <button class="btn number" onclick="appendNumber('5')">5</button>
+                    <button class="btn number" onclick="appendNumber('6')">6</button>
+                    <button class="btn function" onclick="calculate('power')">x²</button>
+
+                    <button class="btn function" onclick="calculate('factorial')">n!</button>
+                    <button class="btn function" onclick="calculate('inverse')">1/x</button>
+                    <button class="btn function" onclick="calculate('abs')">|x|</button>
+                    <button class="btn function" onclick="calculate('percent')">%</button>
+
+                    <button class="btn number" onclick="appendNumber('1')">1</button>
+                    <button class="btn number" onclick="appendNumber('2')">2</button>
+                    <button class="btn number" onclick="appendNumber('3')">3</button>
+                    <button class="btn equals" onclick="calculateResult()">=</button>
+
+                    <button class="btn number zero" onclick="appendNumber('0')">0</button>
+                    <button class="btn number" onclick="appendDecimal()">.</button>
+                    <button class="btn function" onclick="calculate('pi')">π</button>
+                    <button class="btn function" onclick="calculate('e')">e</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculadora de Datas -->
+        <div class="tab-content" id="datas">
+            <div class="date-calculator">
+                <div class="date-section">
+                    <h3>📅 Cálculo de Períodos</h3>
+                    <div class="input-group">
+                        <label>Data Inicial:</label>
+                        <input type="date" id="start-date">
+                    </div>
+                    <div class="input-group">
+                        <label>Data Final:</label>
+                        <input type="date" id="end-date">
+                    </div>
+                    <button class="calculate-btn" onclick="calculateDateDifference()">Calcular Diferença</button>
+                    <div class="result" id="date-result"></div>
+                </div>
+
+                <div class="date-section">
+                    <h3>📅 Adicionar/Subtrair Dias</h3>
+                    <div class="input-group">
+                        <label>Data Base:</label>
+                        <input type="date" id="base-date">
+                    </div>
+                    <div class="input-group">
+                        <label>Dias:</label>
+                        <input type="number" id="days-to-add" placeholder="Digite o número de dias">
+                    </div>
+                    <div class="operation-buttons">
+                        <button class="calculate-btn" onclick="addDays()">Adicionar Dias</button>
+                        <button class="calculate-btn" onclick="subtractDays()">Subtrair Dias</button>
+                    </div>
+                    <div class="result" id="add-subtract-result"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculadora Proporcional -->
+        <div class="tab-content" id="proporcional">
+            <div class="proportional-calculator">
+                <div class="calculation-section">
+                    <h3>💰 Cálculo Proporcional</h3>
+                    <div class="input-group">
+                        <label>Valor Total:</label>
+                        <input type="number" id="total-value" placeholder="Ex: 119.00" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label>Período Total (dias):</label>
+                        <input type="number" id="total-period" placeholder="Ex: 30">
+                    </div>
+                    <div class="input-group">
+                        <label>Período Utilizado (dias):</label>
+                        <input type="number" id="used-period" placeholder="Ex: 18">
+                    </div>
+                    <button class="calculate-btn" onclick="calculateProportional()">Calcular Valor Devido</button>
+                    <div class="result" id="proportional-result"></div>
+                </div>
+
+                <div class="history-section">
+                    <h3>📋 Histórico de Cálculos</h3>
+                    <div class="history-list" id="history-list">
+                        <!-- Histórico será preenchido dinamicamente -->
+                    </div>
+                    <button class="clear-history-btn" onclick="clearHistory()">Limpar Histórico</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
